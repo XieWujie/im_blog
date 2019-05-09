@@ -1,0 +1,4 @@
+package com.example.im_blog.repository
+
+class PassageListRepository (localDataSource: PassageListLocalDataSource,remoteDataSource: PassageListRemoteDataSource)
+    :BothRepository<PassageListLocalDataSource,PassageListRemoteDataSource>(localDataSource,remoteDataSource)

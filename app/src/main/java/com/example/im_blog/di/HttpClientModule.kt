@@ -1,6 +1,7 @@
 package com.example.im_blog.di
 
 import com.example.im_blog.http.BasicAuthIntercept
+import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.kodein.di.Kodein
@@ -40,4 +41,5 @@ val httpClientModule = Kodein.Module(HTTP_CLIENT_MODUEL){
             .addInterceptor(instance(AUTH_INTERCEPT))
             .build()
     }
+    bind<Gson>() with singleton { Gson() }
 }

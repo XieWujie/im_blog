@@ -18,12 +18,13 @@ class LoginViewModel internal constructor(private val resp:LoginRepository):Auto
     private val code = webViewClient.infoCode
     private val err = MutableLiveData<Throwable>()
     val loadUrl = MutableLiveData<String>()
-
+    val passages = MutableLiveData<Any>()
     init {
         resp.local.fetchAutoLoginEvent()
             .filter {it.apply { if (!this){loadUrl.postValue(REQUEST_CODE_URL)} }}
             .autoDisposable(this)
             .subscribe{ autoLogin.postValue(true) }
+
         code.toReactiveStream()
             .flatMap { resp.login(it) }
             .compose(globalHandleError())

@@ -3,7 +3,11 @@ package com.example.im_blog.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.im_blog.base.App
+import com.example.im_blog.database.AppDatabase
 import com.example.im_blog.repository.LUserRepository
+import com.example.im_blog.repository.PassageListLocalDataSource
+import com.example.im_blog.repository.PassageListRemoteDataSource
+import com.example.im_blog.repository.PassageListRepository
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -18,4 +22,7 @@ val repoKodeinModule = Kodein.Module(TAG){
             instance(MY_SHARE)
         )
     }
+    bind<PassageListLocalDataSource>() with singleton {PassageListLocalDataSource.getInstance (instance<AppDatabase>().getPassage())}
+    bind<PassageListRemoteDataSource>() with singleton { PassageListRemoteDataSource(instance()) }
+    bind<PassageListRepository>() with singleton { PassageListRepository(instance(),instance()) }
 }

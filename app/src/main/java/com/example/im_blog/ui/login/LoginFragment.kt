@@ -49,5 +49,6 @@ class LoginFragment : BaseFragment(),KodeinAware{
         model.loadUrl.observe(this, Observer {
             binding.webView.loadUrl(it)
         })
+
     }
 }
