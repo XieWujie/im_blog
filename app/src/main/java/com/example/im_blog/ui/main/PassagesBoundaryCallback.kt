@@ -1,6 +1,5 @@
 package com.example.im_blog.ui.main
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.example.im_blog.database.passage.Passage
@@ -10,14 +9,24 @@ import com.uber.autodispose.lifecycle.LifecycleScopeProvider
 import com.uber.autodispose.lifecycle.autoDisposable
 import io.reactivex.Flowable
 
-class PassagesBoundaryCallback(private val repository: PassageListRepository,private val provider: LifecycleScopeProvider<*>) :PagedList.BoundaryCallback<Passage>(){
+class PassagesBoundaryCallback(
+    private val repository: PassageListRepository,
+    private val provider: LifecycleScopeProvider<*>
+) : PagedList.BoundaryCallback<Passage>() {
 
     private val service = repository.remote
     private val local = repository.local
     val isLoading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Throwable>()
+    private var fresh = { isLoading.postValue(false) }
+
+
+    fun fresh() {
+        fresh.invoke()
+    }
 
     override fun onZeroItemsLoaded() {
+        isLoading.postValue(true)
         handler(service.getByTime())
     }
 
@@ -26,22 +35,20 @@ class PassagesBoundaryCallback(private val repository: PassageListRepository,pri
     }
 
     override fun onItemAtFrontLoaded(itemAtFront: Passage) {
-      handler(service.getByTime(from = itemAtFront.id))
+        fresh = {
+            isLoading.postValue(true)
+            handler(service.getByTime(from = itemAtFront.id))
+        }
+        fresh.invoke()
     }
 
-    fun handler(f: Flowable<List<Passage>>){
-        isLoading.postValue(true)
+    fun handler(f: Flowable<List<Passage>>) {
         f.compose(globalHandleError())
-            .doOnNext {
-                Log.d("list-",it.toString())
-                local.insert(it)
-            }
-            .doOnError {
-                error.postValue(it)
-                it.printStackTrace()
-            }
+            .doOnNext { local.insert(it) }
+            .doOnError { error.postValue(it) }
             .doFinally { isLoading.postValue(false) }
             .autoDisposable(provider)
-            .subscribe({},{it?.printStackTrace()})
+            .subscribe({}, { it?.printStackTrace() })
     }
+
 }

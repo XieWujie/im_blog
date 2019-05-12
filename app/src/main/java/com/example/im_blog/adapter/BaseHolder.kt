@@ -7,4 +7,5 @@ abstract class BaseHolder<T>(view:View):RecyclerView.ViewHolder(view){
     private val context = itemView.context
 
     abstract fun bind(source:T)
+
 }

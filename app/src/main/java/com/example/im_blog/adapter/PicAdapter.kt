@@ -7,43 +7,43 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.im_blog.databinding.PicViewBinding
 
-class PicAdapter ():RecyclerView.Adapter<PicAdapter.ViewHolder>(){
+class PicAdapter() : RecyclerView.Adapter<PicAdapter.ViewHolder>() {
 
     private val mList = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = PicViewBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = PicViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-       return  mList.size
+        return mList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       holder.bind(mList[position])
+        holder.bind(mList[position])
     }
 
-    fun setList(list:List<String>){
+    fun setList(list: List<String>) {
         mList.clear()
         mList.addAll(list)
     }
 
-    inner class ViewHolder(val binging:PicViewBinding):BaseHolder<String>(binging.root){
+    inner class ViewHolder(val binging: PicViewBinding) : BaseHolder<String>(binging.root) {
 
         override fun bind(source: String) {
-           val h =  when(mList.size){
-                1->px2dp(itemView.context,300)
-               2->px2dp(itemView.context,150)
-               else->px2dp(itemView.context,100)
+            val h = when (mList.size) {
+                1 -> px2dp(itemView.context, 300)
+                2 -> px2dp(itemView.context, 150)
+                else -> px2dp(itemView.context, 100)
             }
-            val large =  source.replace("thumbnail","large")
-          Glide.with(binging.image).load(large).override(h,h).into(binging.image)
+            val large = source.replace("thumbnail", "large")
+            Glide.with(binging.image).load(large).override(h, h).into(binging.image)
         }
     }
 
-    private fun px2dp(context:Context,dp:Int):Int{
+    private fun px2dp(context: Context, dp: Int): Int {
         val d = context.resources.displayMetrics.density
-        return (dp*d+0.5).toInt()
+        return (dp * d + 0.5).toInt()
     }
 }

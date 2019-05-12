@@ -13,9 +13,10 @@ class MainFragmentViewModel internal constructor(private val resp:PassageListRep
     private val boundaryCallback = PassagesBoundaryCallback(resp,this)
     val err = boundaryCallback.error
     val isLoading = boundaryCallback.isLoading
+    val fresh = boundaryCallback::fresh
 
     fun passages() = resp.local.query().toLiveData(20,null,boundaryCallback)
-
+    fun fresh() = fresh.invoke()
 }
 
 

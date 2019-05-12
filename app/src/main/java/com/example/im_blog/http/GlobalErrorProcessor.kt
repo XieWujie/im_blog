@@ -14,7 +14,7 @@ fun <T> globalHandleError(): GlobalErrorTransformer<T> = GlobalErrorTransformer(
                         else -> toast { "network failure" }
                     }
                 }
-                else -> toast { "network failure" }
+                else -> toast { "request failure" }
             }
             error.printStackTrace()
         }

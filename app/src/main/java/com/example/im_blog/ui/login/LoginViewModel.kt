@@ -18,7 +18,7 @@ class LoginViewModel internal constructor(private val resp:LoginRepository):Auto
     private val code = webViewClient.infoCode
     private val err = MutableLiveData<Throwable>()
     val loadUrl = MutableLiveData<String>()
-    val passages = MutableLiveData<Any>()
+
     init {
         resp.local.fetchAutoLoginEvent()
             .filter {it.apply { if (!this){loadUrl.postValue(REQUEST_CODE_URL)} }}
@@ -32,10 +32,12 @@ class LoginViewModel internal constructor(private val resp:LoginRepository):Auto
             .doOnError { err.postValue(it) }
             .autoDisposable(this)
             .subscribe{ autoLogin.postValue(true) }
+
     }
 }
 
 class LoginModelFactory (private val resp: LoginRepository):ViewModelProvider.NewInstanceFactory(){
+
     @Suppress( "UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return LoginViewModel(resp) as T

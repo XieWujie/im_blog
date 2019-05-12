@@ -1,14 +1,16 @@
 package com.example.im_blog.http.gson
 
+import com.example.im_blog.base.App
 import com.google.gson.Gson
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
+import org.kodein.di.generic.instance
 import java.lang.reflect.Type
-import java.text.SimpleDateFormat
-import java.util.*
 
 class PicConverter:JsonDeserializer<String>{
+
+    private val gson:Gson by App.INSTANCE.kodein.instance()
 
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): String {
         val array = json.asJsonArray
@@ -16,6 +18,6 @@ class PicConverter:JsonDeserializer<String>{
             .map { it.asJsonObject }
             .map { it["thumbnail_pic"].asString }
             .toList()
-        return Gson().toJson(new)
+        return gson.toJson(new)
     }
 }

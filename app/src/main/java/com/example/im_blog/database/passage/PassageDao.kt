@@ -14,4 +14,6 @@ interface PassageDao{
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(passages:List<Passage>)
+
+
 }

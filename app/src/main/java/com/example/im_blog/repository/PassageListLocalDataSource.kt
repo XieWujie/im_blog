@@ -13,6 +13,5 @@ class PassageListLocalDataSource(private val dao: PassageDao) :LocalDataSource{
       dao.insert(passages)
     }
 
-
     companion object:SingletonHolderSingleArg<PassageListLocalDataSource,PassageDao>(::PassageListLocalDataSource)
 }

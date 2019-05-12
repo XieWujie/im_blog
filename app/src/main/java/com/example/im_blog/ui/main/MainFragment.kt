@@ -51,5 +51,8 @@ class MainFragment :BaseFragment(),KodeinAware{
         model.isLoading.observe(this, Observer {
             binding.fresh.isRefreshing = it
         })
+        binding.fresh.setOnRefreshListener {
+            model.fresh()
+        }
     }
 }
