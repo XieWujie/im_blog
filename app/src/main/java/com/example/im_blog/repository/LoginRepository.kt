@@ -25,11 +25,12 @@ class LoginLocalDataSource(private val repository: LUserRepository):LocalDataSou
             val token = repository.token
             val isAutoLogin = repository.autoLogin
             val uid = repository.uid
-            UserManage.token = token
-            UserManage.uid = uid
+
+            UserManage.token = token?:""
+            UserManage.uid = uid?:""
             Log.d("token", "token:")
             Log.d("uid", "uid:")
-            return Flowable.just(token.isNotBlank() && isAutoLogin && uid.isNotBlank())
+            return Flowable.just(!token.isNullOrBlank() && isAutoLogin && !uid.isNullOrBlank())
         }catch (e:Exception){
             e.printStackTrace()
         }

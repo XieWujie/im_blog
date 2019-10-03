@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.im_blog.R
 import com.example.im_blog.adapter.PassageAdapter
 import com.example.im_blog.base.BaseFragment
+import com.example.im_blog.base.toast
 import com.example.im_blog.databinding.FragmentItemsBinding
 import com.example.im_blog.di.mainFragmentModule
 import org.kodein.di.Kodein
@@ -45,14 +46,21 @@ class MainFragment :BaseFragment(),KodeinAware{
 
     private fun dispatchEvent(){
         model.passages().observe(this, Observer {
+            Log.d("list-",it.toString())
             adapter.submitList(it)
-            Log.d("list-",it?.toString())
         })
         model.isLoading.observe(this, Observer {
             binding.fresh.isRefreshing = it
+            Log.d("isLoading",it.toString())
         })
         binding.fresh.setOnRefreshListener {
             model.fresh()
         }
+
+        model.err.observe(this, Observer {
+            it?.apply {
+                it.message
+            }
+        })
     }
 }

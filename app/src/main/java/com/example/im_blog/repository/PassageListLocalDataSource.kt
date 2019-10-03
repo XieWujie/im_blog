@@ -3,7 +3,6 @@ package com.example.im_blog.repository
 import com.example.im_blog.comment.SingletonHolderSingleArg
 import com.example.im_blog.database.passage.Passage
 import com.example.im_blog.database.passage.PassageDao
-import com.example.im_blog.utilies.runOnNewThread
 
 class PassageListLocalDataSource(private val dao: PassageDao) :LocalDataSource{
 

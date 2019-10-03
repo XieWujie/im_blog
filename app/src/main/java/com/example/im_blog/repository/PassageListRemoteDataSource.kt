@@ -1,5 +1,6 @@
 package com.example.im_blog.repository
 
+import android.util.Log
 import com.example.im_blog.database.passage.Passage
 import com.example.im_blog.http.service.PassagesService
 import io.reactivex.Flowable

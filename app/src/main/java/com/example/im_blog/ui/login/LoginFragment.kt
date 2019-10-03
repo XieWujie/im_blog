@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import androidx.lifecycle.Observer
 import com.example.im_blog.R
 import com.example.im_blog.base.BaseFragment
@@ -36,6 +37,7 @@ class LoginFragment : BaseFragment(),KodeinAware{
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = inflater.bind(R.layout.fragment_login,container)
         binding.webView.webViewClient = model.webViewClient
+        binding.webView.settings.javaScriptEnabled = true
         dispatchEvent()
         return binding.root
     }

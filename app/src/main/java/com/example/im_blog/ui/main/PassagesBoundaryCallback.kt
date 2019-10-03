@@ -26,8 +26,11 @@ class PassagesBoundaryCallback(
     }
 
     override fun onZeroItemsLoaded() {
-        isLoading.postValue(true)
-        handler(service.getByTime())
+        fresh ={
+            isLoading.postValue(true)
+            handler(service.getByTime())
+        }
+        fresh.invoke()
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: Passage) {
@@ -35,20 +38,17 @@ class PassagesBoundaryCallback(
     }
 
     override fun onItemAtFrontLoaded(itemAtFront: Passage) {
-        fresh = {
-            isLoading.postValue(true)
-            handler(service.getByTime(from = itemAtFront.id))
-        }
-        fresh.invoke()
+
     }
 
     fun handler(f: Flowable<List<Passage>>) {
         f.compose(globalHandleError())
-            .doOnNext { local.insert(it) }
+            .doOnNext {
+                local.insert(it)
+            }
             .doOnError { error.postValue(it) }
             .doFinally { isLoading.postValue(false) }
             .autoDisposable(provider)
             .subscribe({}, { it?.printStackTrace() })
     }
-
 }

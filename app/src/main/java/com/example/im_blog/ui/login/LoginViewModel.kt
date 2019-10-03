@@ -1,5 +1,6 @@
 package com.example.im_blog.ui.login
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +21,7 @@ class LoginViewModel internal constructor(private val resp:LoginRepository):Auto
     val loadUrl = MutableLiveData<String>()
 
     init {
+
         resp.local.fetchAutoLoginEvent()
             .filter {it.apply { if (!this){loadUrl.postValue(REQUEST_CODE_URL)} }}
             .autoDisposable(this)
@@ -28,8 +30,13 @@ class LoginViewModel internal constructor(private val resp:LoginRepository):Auto
         code.toReactiveStream()
             .flatMap { resp.login(it) }
             .compose(globalHandleError())
-            .doOnNext { resp.local.save(it) }
-            .doOnError { err.postValue(it) }
+            .doOnNext {
+                resp.local.save(it)
+                Log.d("token",it.access_token)
+            }
+            .doOnError {
+                err.postValue(it)
+            }
             .autoDisposable(this)
             .subscribe{ autoLogin.postValue(true) }
 

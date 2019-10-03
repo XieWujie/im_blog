@@ -15,9 +15,11 @@ class MyWebViewClient :WebViewClient(){
     val infoCode = MutableLiveData<String>()
     private val targetUrl = "https://api.weibo.com/oauth2/default.html?code="
 
+
     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
         super.onPageStarted(view, url, favicon)
         loadState.postValue(LoadState.loading)
+        Log.d(TAG,"loading")
         if (view == null){
             return
         }else{

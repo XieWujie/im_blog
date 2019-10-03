@@ -1,6 +1,5 @@
 package com.example.im_blog.ext
 
-import android.content.Context
 import android.content.SharedPreferences
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -26,9 +25,9 @@ fun SharedPreferences.int(key: String? = null,defaultValue: Int = 0) =
 fun SharedPreferences.long(key: String? = null, defValue: Long = 0): ReadWriteProperty<Any, Long> {
     return delegate(key, defValue, SharedPreferences::getLong, SharedPreferences.Editor::putLong)
 }
-fun SharedPreferences.string(key: String? = null, defValue: String = ""): ReadWriteProperty<Any, String> {
-    return delegate(key, defValue, SharedPreferences::getString, SharedPreferences.Editor::putString)
-}
+fun SharedPreferences.string(key: String? = null, defValue: String = "") =
+    delegate(key, defValue, SharedPreferences::getString, SharedPreferences.Editor::putString)
+
 
 fun SharedPreferences.boolean(key: String? = null, defValue:Boolean = false): ReadWriteProperty<Any, Boolean> {
     return delegate(key, defValue, SharedPreferences::getBoolean, SharedPreferences.Editor::putBoolean)

@@ -11,13 +11,12 @@ class BasicAuthIntercept(private val repos:LUserRepository):Interceptor{
         val token  = repos.token
         var request = chain.request()
         val url = request.url().toString().replace("%3A", ":").replace("%2F", "/")
-        if (token.isNotBlank()){
-            request = request.newBuilder()
-                .addHeader("Authorization",token)
+        when(token){
+            null->  request = request.newBuilder()
                 .url(url)
                 .build()
-        }else{
-            request = request.newBuilder()
+            else->  request = request.newBuilder()
+                .addHeader("Authorization",token)
                 .url(url)
                 .build()
         }

@@ -1,10 +1,12 @@
 package com.example.im_blog.database
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.im_blog.database.User.User
 import com.example.im_blog.database.User.UserDao
 import com.example.im_blog.database.passage.Passage
@@ -31,8 +33,11 @@ abstract class AppDatabase: RoomDatabase(){
         private fun buildInstance(context: Context):AppDatabase{
             return Room.databaseBuilder(context,AppDatabase::class.java, "im_blog")
                 .addCallback(object : RoomDatabase.Callback(){
-                }).allowMainThreadQueries()
-                .build()
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        Log.d("AppDb","database created")
+                    }
+                }).build()
         }
     }
 }
