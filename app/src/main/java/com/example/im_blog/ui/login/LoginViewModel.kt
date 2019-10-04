@@ -8,11 +8,11 @@ import com.example.im_blog.base.AutoDisposeViewModel
 import com.example.im_blog.comment.SingletonHolderSingleArg
 import com.example.im_blog.ext.toReactiveStream
 import com.example.im_blog.http.globalHandleError
-import com.example.im_blog.repository.LoginRepository
+import com.example.im_blog.repository.login.LoginRepository
 import com.example.im_blog.utilies.REQUEST_CODE_URL
 import com.uber.autodispose.lifecycle.autoDisposable
 
-class LoginViewModel internal constructor(private val resp:LoginRepository):AutoDisposeViewModel(){
+class LoginViewModel internal constructor(private val resp: LoginRepository):AutoDisposeViewModel(){
 
     val autoLogin = MutableLiveData<Boolean>()
     val webViewClient = MyWebViewClient()
@@ -49,5 +49,5 @@ class LoginModelFactory (private val resp: LoginRepository):ViewModelProvider.Ne
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return LoginViewModel(resp) as T
     }
-    companion object:SingletonHolderSingleArg<LoginModelFactory,LoginRepository>(::LoginModelFactory)
+    companion object:SingletonHolderSingleArg<LoginModelFactory, LoginRepository>(::LoginModelFactory)
 }

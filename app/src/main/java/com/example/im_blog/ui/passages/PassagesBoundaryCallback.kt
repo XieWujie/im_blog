@@ -1,10 +1,10 @@
-package com.example.im_blog.ui.main
+package com.example.im_blog.ui.passages
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.example.im_blog.database.passage.Passage
 import com.example.im_blog.http.globalHandleError
-import com.example.im_blog.repository.PassageListRepository
+import com.example.im_blog.repository.passsages.PassageListRepository
 import com.uber.autodispose.lifecycle.LifecycleScopeProvider
 import com.uber.autodispose.lifecycle.autoDisposable
 import io.reactivex.Flowable

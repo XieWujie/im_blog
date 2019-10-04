@@ -15,7 +15,7 @@ data class UserInfo(
     val friends_count: Int,
     val gender: String,
     val geo_enabled: Boolean,
-    val id: Int,
+    val id: Long,
     val location: String,
     val name: String,
     val online_status: Int,
@@ -23,10 +23,8 @@ data class UserInfo(
     val province: String,
     val screen_name: String,
     val status: Status,
-    val statuses_count: Int,
-    val url: String,
-    val verified: Boolean,
-    val verified_reason: String
+    val statuses_count: Int
+
 )
 
 data class Status(

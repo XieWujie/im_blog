@@ -26,7 +26,7 @@ class PassageHolder(val binding: PassageItemBinding) : BaseHolder<Passage>(bindi
     }
 
     private fun getPics(pics: String): Array<String> {
-        val g = gson.fromJson<Array<String>>(pics, Array<String>::class.java)
+        val g = gson.fromJson(pics, Array<String>::class.java)
         return g
     }
 }

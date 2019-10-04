@@ -1,11 +1,9 @@
 package com.example.im_blog.di
 
-import android.content.Context
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.im_blog.ui.main.MainFragment
-import com.example.im_blog.ui.main.MainFragmentViewModel
-import com.example.im_blog.ui.main.MainFragmentViewModelFactory
+import com.example.im_blog.ui.passages.PassageListFragment
+import com.example.im_blog.ui.passages.MainFragmentViewModel
+import com.example.im_blog.ui.passages.MainFragmentViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.android.x.AndroidLifecycleScope
 import org.kodein.di.generic.bind
@@ -18,7 +16,7 @@ val mainFragmentModule = Kodein.Module(TAG){
 
     bind<MainFragmentViewModel>() with scoped(AndroidLifecycleScope).singleton {
         ViewModelProviders.
-            of(instance<MainFragment>(),MainFragmentViewModelFactory(instance()))
+            of(instance<PassageListFragment>(),MainFragmentViewModelFactory(instance()))
             .get(MainFragmentViewModel::class.java)
     }
 }

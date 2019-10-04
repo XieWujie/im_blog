@@ -2,10 +2,10 @@ package com.example.im_blog.di
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.im_blog.repository.LoginLocalDataSource
-import com.example.im_blog.repository.LoginRemoteDataSource
-import com.example.im_blog.repository.LoginRepository
-import com.example.im_blog.repository.LoginService
+import com.example.im_blog.repository.login.LoginLocalDataSource
+import com.example.im_blog.repository.login.LoginRemoteDataSource
+import com.example.im_blog.repository.login.LoginRepository
+import com.example.im_blog.repository.login.LoginService
 import com.example.im_blog.ui.login.LoginFragment
 import com.example.im_blog.ui.login.LoginModelFactory
 import com.example.im_blog.ui.login.LoginViewModel
@@ -21,9 +21,26 @@ val loginKodeinModule = Kodein.Module(TAG){
             instance<LoginFragment>(), LoginModelFactory.getInstance(instance()))
             .get(LoginViewModel::class.java)
     }
-    bind<LoginLocalDataSource>() with provider { LoginLocalDataSource(instance()) }
-    bind<LoginService>() with provider { LoginService(instance()) }
-    bind<LoginRemoteDataSource>() with provider { LoginRemoteDataSource(instance()) }
-    bind<LoginRepository>() with provider { LoginRepository(instance(),instance()) }
+    bind<LoginLocalDataSource>() with provider {
+        LoginLocalDataSource(
+            instance()
+        )
+    }
+    bind<LoginService>() with provider {
+        LoginService(
+            instance()
+        )
+    }
+    bind<LoginRemoteDataSource>() with provider {
+        LoginRemoteDataSource(
+            instance()
+        )
+    }
+    bind<LoginRepository>() with provider {
+        LoginRepository(
+            instance(),
+            instance()
+        )
+    }
 }
 

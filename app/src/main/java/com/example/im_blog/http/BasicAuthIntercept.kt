@@ -1,11 +1,10 @@
 package com.example.im_blog.http
 
-import android.util.Log
-import com.example.im_blog.repository.LUserRepository
+import com.example.im_blog.repository.user.LUserRepository
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class BasicAuthIntercept(private val repos:LUserRepository):Interceptor{
+class BasicAuthIntercept(private val repos: LUserRepository):Interceptor{
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val token  = repos.token
@@ -20,8 +19,7 @@ class BasicAuthIntercept(private val repos:LUserRepository):Interceptor{
                 .url(url)
                 .build()
         }
-        Log.d("url-",url)
-        Log.d("request",request.headers().toString())
+
         return chain.proceed(request)
     }
 }

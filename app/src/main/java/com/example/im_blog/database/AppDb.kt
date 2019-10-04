@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.im_blog.database.User.User
 import com.example.im_blog.database.User.UserDao

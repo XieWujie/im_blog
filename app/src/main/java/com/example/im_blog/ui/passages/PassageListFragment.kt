@@ -1,18 +1,15 @@
-package com.example.im_blog.ui.main
+package com.example.im_blog.ui.passages
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.im_blog.R
 import com.example.im_blog.adapter.PassageAdapter
 import com.example.im_blog.base.BaseFragment
-import com.example.im_blog.base.toast
 import com.example.im_blog.databinding.FragmentItemsBinding
 import com.example.im_blog.di.mainFragmentModule
 import org.kodein.di.Kodein
@@ -23,12 +20,12 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.scoped
 import org.kodein.di.generic.singleton
 
-class MainFragment :BaseFragment(),KodeinAware{
+class PassageListFragment :BaseFragment(),KodeinAware{
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parent)
         import(mainFragmentModule)
-        bind<MainFragment>() with scoped(AndroidLifecycleScope).singleton { this@MainFragment }
+        bind<PassageListFragment>() with scoped(AndroidLifecycleScope).singleton { this@PassageListFragment }
     }
 
     private lateinit var binding:FragmentItemsBinding
@@ -46,21 +43,16 @@ class MainFragment :BaseFragment(),KodeinAware{
 
     private fun dispatchEvent(){
         model.passages().observe(this, Observer {
-            Log.d("list-",it.toString())
             adapter.submitList(it)
         })
         model.isLoading.observe(this, Observer {
             binding.fresh.isRefreshing = it
-            Log.d("isLoading",it.toString())
         })
         binding.fresh.setOnRefreshListener {
             model.fresh()
         }
 
         model.err.observe(this, Observer {
-            it?.apply {
-                it.message
-            }
-        })
+            it?.apply { it.message } })
     }
 }

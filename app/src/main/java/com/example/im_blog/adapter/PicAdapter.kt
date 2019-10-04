@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.im_blog.databinding.PicViewBinding
 
-class PicAdapter() : RecyclerView.Adapter<PicAdapter.ViewHolder>() {
+class PicAdapter: RecyclerView.Adapter<PicAdapter.ViewHolder>() {
 
     private val mList = ArrayList<String>()
 

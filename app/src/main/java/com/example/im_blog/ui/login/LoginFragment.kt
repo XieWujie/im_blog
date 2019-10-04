@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebSettings
 import androidx.lifecycle.Observer
 import com.example.im_blog.R
 import com.example.im_blog.base.BaseFragment
@@ -13,7 +12,6 @@ import com.example.im_blog.di.loginKodeinModule
 import com.example.im_blog.ext.bind
 import com.example.im_blog.ext.toReactiveStream
 import com.example.im_blog.ui.MainActivity
-import com.example.im_blog.utilies.REQUEST_CODE_URL
 import com.uber.autodispose.lifecycle.autoDisposable
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware

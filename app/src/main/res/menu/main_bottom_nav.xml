@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/mainFragment" android:title="首页"/>
+    <item android:id="@+id/PassageListFragment" android:title="首页"/>
+    <item android:id="@+id/me_fragment" android:title="我的"/>
 </menu>

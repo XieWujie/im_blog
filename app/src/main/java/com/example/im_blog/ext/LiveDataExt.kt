@@ -10,8 +10,6 @@ import io.reactivex.Scheduler
 import io.reactivex.android.MainThreadDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-fun<T,R> LiveData<T>.map(f:(T)->R):LiveData<R> = Transformations.map(this,f)
-
 fun <T> LiveData<T>.toReactiveStream(
     observerScheduler: Scheduler = AndroidSchedulers.mainThread()
 ): Flowable<T> = Flowable

@@ -15,8 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 private const val HTTP_CLIENT_MODUEL = "http_client_module"
-private val BASE_URL = "https://api.weibo.com"
-private val AUTH_INTERCEPT = "authorization_intercept"
+private  const val  BASE_URL = "https://api.weibo.com"
+private const val AUTH_INTERCEPT = "authorization_intercept"
 
 val httpClientModule = Kodein.Module(HTTP_CLIENT_MODUEL){
     bind<Retrofit.Builder>() with provider { Retrofit.Builder() }

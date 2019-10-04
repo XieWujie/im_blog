@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class User(
-    @PrimaryKey()
+    @PrimaryKey
     @ColumnInfo(name = "userid")
     val id: Long,
     val allow_all_act_msg: Boolean,
