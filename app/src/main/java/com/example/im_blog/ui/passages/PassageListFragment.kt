@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.im_blog.R
 import com.example.im_blog.adapter.PassageAdapter
 import com.example.im_blog.base.BaseFragment
+import com.example.im_blog.database.passage.Passage
 import com.example.im_blog.databinding.FragmentItemsBinding
 import com.example.im_blog.di.mainFragmentModule
 import org.kodein.di.Kodein
@@ -41,8 +42,10 @@ class PassageListFragment :BaseFragment(),KodeinAware{
         return binding.root
     }
 
+
     private fun dispatchEvent(){
-        model.passages().observe(this, Observer {
+        val passage_type = activity?.intent?.getIntExtra(Passage.PASSAGE_TYPE,Passage.TYPE_FLOWER)?:Passage.TYPE_FLOWER
+        model.passages(passage_type).observe(this, Observer {
             adapter.submitList(it)
         })
         model.isLoading.observe(this, Observer {

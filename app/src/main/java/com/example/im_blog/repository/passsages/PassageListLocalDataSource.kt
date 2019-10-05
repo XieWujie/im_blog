@@ -8,7 +8,7 @@ import com.example.im_blog.repository.LocalDataSource
 class PassageListLocalDataSource(private val dao: PassageDao) :
     LocalDataSource {
 
-    fun query() = dao.query()
+    fun query(passage_type:Int) = dao.query(passage_type)
 
     fun insert(passages: List<Passage>){
       dao.insert(passages)

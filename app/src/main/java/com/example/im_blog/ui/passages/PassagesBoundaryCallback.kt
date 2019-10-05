@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.example.im_blog.database.passage.Passage
 import com.example.im_blog.http.globalHandleError
+import com.example.im_blog.repository.UserManage
 import com.example.im_blog.repository.passsages.PassageListRepository
 import com.uber.autodispose.lifecycle.LifecycleScopeProvider
 import com.uber.autodispose.lifecycle.autoDisposable
@@ -16,6 +17,7 @@ class PassagesBoundaryCallback(
 
     private val service = repository.remote
     private val local = repository.local
+    var passageType = Passage.TYPE_FLOWER
     val isLoading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Throwable>()
     private var fresh = { isLoading.postValue(false) }
@@ -28,27 +30,31 @@ class PassagesBoundaryCallback(
     override fun onZeroItemsLoaded() {
         fresh ={
             isLoading.postValue(true)
-            handler(service.getByTime())
+            dataLoad()
         }
         fresh.invoke()
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: Passage) {
-        handler(service.getByTime(last = itemAtEnd.id))
+        dataLoad(itemAtEnd.id)
     }
 
-    override fun onItemAtFrontLoaded(itemAtFront: Passage) {
-
+    fun dataLoad(last:Long = 0){
+        when(passageType){
+            Passage.TYPE_FLOWER-> handle(service.getByTime(last = last))
+            Passage.TYPE_MINE->handle(service.fetchUserPassages(UserManage.uid,last))
+        }
     }
 
-    fun handler(f: Flowable<List<Passage>>) {
+    fun handle(f: Flowable<List<Passage>>) {
         f.compose(globalHandleError())
             .doOnNext {
+                it.forEach { it.passage_type = passageType }
                 local.insert(it)
             }
             .doOnError { error.postValue(it) }
             .doFinally { isLoading.postValue(false) }
             .autoDisposable(provider)
-            .subscribe({}, { it?.printStackTrace() })
+            .subscribe({},{it.printStackTrace()})
     }
 }

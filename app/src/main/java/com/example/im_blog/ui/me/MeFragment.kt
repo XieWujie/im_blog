@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.example.im_blog.R
 import com.example.im_blog.base.BaseFragment
+import com.example.im_blog.database.passage.Passage
 import com.example.im_blog.databinding.FragmentMeBinding
 import com.example.im_blog.di.MineModule
 import com.example.im_blog.repository.user.Mine
@@ -39,7 +41,15 @@ class MeFragment :BaseFragment(),KodeinAware{
             Log.d("mineInfo",it.toString())
         })
         model.fetchMine()
+        dispatchEvent()
         return binding.root
     }
 
+    fun dispatchEvent(){
+        binding.weiboText.setOnClickListener {
+            it.findNavController().navigate(R.id.PassageListFragment,Bundle().let {
+                it.putInt(Passage.PASSAGE_TYPE,Passage.TYPE_MINE)
+                it })
+        }
+    }
 }

@@ -23,7 +23,9 @@ interface PassagesService {
     fun fetchUserPassages(
         @Query("access_token") token: String,
         @Query("count") count: Int = 20,
-        @Query("uid") uid: Long = 0L,
-        @Query("page") page: Int = 1
+        @Query("uid") uid: String,
+        @Query("page") page: Int = 1,
+        @Query("since_id") since: Long = 0,
+        @Query("max_id") max: Long = 0
     ):Flowable<Passages>
 }

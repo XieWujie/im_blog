@@ -12,11 +12,11 @@ class RUserRepository(private val service:UserInfoService) : RemoteDataSource {
 
 
     fun fetchUserInfo():Flowable<UserInfo> = service
-        .fetchInfo(UserManage.token,UserManage.uid)
+        .fetchInfo(UserManage.token,UserManage.uid.toString())
         .subscribeOn(Schedulers.io())
 
     fun fetchUserInfoCount() = service
-        .fetchCount(UserManage.token,UserManage.uid)
+        .fetchCount(UserManage.token,UserManage.uid.toString())
         .subscribeOn(Schedulers.io())
         .map { it[0] }
 }

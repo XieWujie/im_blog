@@ -57,5 +57,14 @@ data class Passage(
     @Embedded
     val user: User,
     val userType: Int,
-    val version: Int
-)
+    val version: Int,
+    var passage_type:Int = TYPE_FLOWER
+){
+
+    companion object{
+
+        const val TYPE_MINE = 0
+        const val TYPE_FLOWER = 1
+        const val PASSAGE_TYPE = "passage_type"
+    }
+}

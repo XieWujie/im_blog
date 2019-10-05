@@ -43,6 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{mine.name}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.10"
@@ -54,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{mine.description}"
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.10"
@@ -71,11 +74,23 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline"
                 app:layout_constraintVertical_bias="0.0" />
 
+        <View
+                android:id="@+id/view2"
+                android:layout_width="wrap_content"
+                android:layout_height="1px"
+                android:background="#999999"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintVertical_bias="0.0" />
+
         <TextView
                 android:id="@+id/weibo_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text='@{mine.statues_count+""}'
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/weibo_text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,6 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text='@{mine.friends_count+""}'
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toTopOf="@+id/attention_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/fans_count"
@@ -122,6 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text='@{mine.flowers_count+""}'
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toTopOf="@+id/fans_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

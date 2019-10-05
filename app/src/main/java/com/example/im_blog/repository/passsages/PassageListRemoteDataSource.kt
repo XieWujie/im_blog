@@ -18,11 +18,12 @@ class PassageListRemoteDataSource (val service: PassagesService):
             .map { it.statuses }
     }
 
-    fun fetchUserPassages(uid:Long):Flowable<List<Passage>>{
+    fun fetchUserPassages(uid:String,last: Long):Flowable<List<Passage>>{
         return service
-            .fetchUserPassages(token = UserManage.token,uid = uid)
+            .fetchUserPassages(token = UserManage.token,uid = uid,max = last)
             .subscribeOn(Schedulers.io())
-            .map { it.statuses }
-
+            .map {
+                it.statuses
+            }
     }
 }
