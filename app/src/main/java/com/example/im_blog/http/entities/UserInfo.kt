@@ -24,7 +24,6 @@ data class UserInfo(
     val screen_name: String,
     val status: Status,
     val statuses_count: Int
-
 )
 
 data class Status(

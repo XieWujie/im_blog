@@ -1,6 +1,7 @@
 package com.example.im_blog.ui.passages
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,8 @@ class PassageListFragment :BaseFragment(),KodeinAware{
 
 
     private fun dispatchEvent(){
-        val passage_type = activity?.intent?.getIntExtra(Passage.PASSAGE_TYPE,Passage.TYPE_FLOWER)?:Passage.TYPE_FLOWER
+        val passage_type = arguments?.getInt(Passage.PASSAGE_TYPE,Passage.TYPE_FLOWER)?:Passage.TYPE_FLOWER
+        Log.d("type_passage","$passage_type")
         model.passages(passage_type).observe(this, Observer {
             adapter.submitList(it)
         })

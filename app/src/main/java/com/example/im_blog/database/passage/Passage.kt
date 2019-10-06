@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.example.im_blog.database.User.User
 import com.example.im_blog.http.gson.PicConverter
 import com.google.gson.annotations.JsonAdapter
+import java.io.Serializable
 
 @Entity()
 data class Passage(
@@ -23,7 +24,7 @@ data class Passage(
     val gif_ids: String,
     val hasActionTypeCard: Int,
     val hide_flag: Int,
-    val idstr: String,
+    val idstr: String?,
     val in_reply_to_screen_name: String,
     val in_reply_to_status_id: String,
     val in_reply_to_user_id: String,
@@ -45,7 +46,7 @@ data class Passage(
     val reposts_count: Int,
     val reward_exhibition_type: Int,
     val reward_scheme: String ?= "",
-    val rid: String = "",
+    val rid: String? = "",
     val show_additional_indication: Int,
     val source: String = "",
     val source_allowclick: Int,
@@ -59,10 +60,10 @@ data class Passage(
     val userType: Int,
     val version: Int,
     var passage_type:Int = TYPE_FLOWER
-){
+):Serializable{
 
     companion object{
-
+        const val PASSAGE_ID = "passage_id"
         const val TYPE_MINE = 0
         const val TYPE_FLOWER = 1
         const val PASSAGE_TYPE = "passage_type"

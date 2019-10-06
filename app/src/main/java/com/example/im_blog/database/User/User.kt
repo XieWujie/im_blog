@@ -3,6 +3,7 @@ package com.example.im_blog.database.User
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class User(
@@ -74,4 +75,4 @@ data class User(
     val verified_type_ext: Int,
     val video_status_count: Int,
     val weihao: String
-)
+):Serializable
