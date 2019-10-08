@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data>
-        <variable name="passage" type="com.example.im_blog.database.passage.Passage"/>
-    </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent"
-        tools:context=".ui.MainPassageActivity">
+        tools:context=".ui.MyPassagesActivity">
+
     <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:id="@+id/toolbar"
@@ -17,9 +15,10 @@
             app:popupTheme="@style/popToolbar"
             android:background="@color/colorPrimary"
             android:layout_height="?attr/actionBarSize"/>
-    <androidx.recyclerview.widget.RecyclerView
+    <fragment
             android:layout_width="match_parent"
-            android:id="@+id/recycler_view"
+            android:name="com.example.im_blog.ui.passages.PassageListFragment"
+            android:id="@+id/my_passage_fragment"
             android:layout_height="match_parent"/>
 </LinearLayout>
 </layout>

@@ -39,15 +39,17 @@ class PassageListFragment :BaseFragment(),KodeinAware{
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
-        dispatchEvent()
         return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val passageType = arguments!!.getInt(Passage.PASSAGE_TYPE,Passage.TYPE_FLOWER)
+        dispatchEvent(passageType)
+    }
 
-    private fun dispatchEvent(){
-        val passage_type = arguments?.getInt(Passage.PASSAGE_TYPE,Passage.TYPE_FLOWER)?:Passage.TYPE_FLOWER
-        Log.d("type_passage","$passage_type")
-        model.passages(passage_type).observe(this, Observer {
+     fun dispatchEvent(passageType:Int){
+        model.passages(passageType).observe(this, Observer {
             adapter.submitList(it)
         })
         model.isLoading.observe(this, Observer {

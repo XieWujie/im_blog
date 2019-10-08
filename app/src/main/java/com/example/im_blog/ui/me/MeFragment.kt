@@ -14,6 +14,7 @@ import com.example.im_blog.database.passage.Passage
 import com.example.im_blog.databinding.FragmentMeBinding
 import com.example.im_blog.di.MineModule
 import com.example.im_blog.repository.user.Mine
+import com.example.im_blog.ui.MyPassagesActivity
 import com.example.im_blog.ui.passages.PassageListFragment
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -46,10 +47,6 @@ class MeFragment :BaseFragment(),KodeinAware{
     }
 
     fun dispatchEvent(){
-        binding.weiboText.setOnClickListener {
-            it.findNavController().navigate(R.id.PassageListFragment,Bundle().let {
-                it.putInt(Passage.PASSAGE_TYPE,Passage.TYPE_MINE)
-                it })
-        }
+        binding.weiboText.setOnClickListener { MyPassagesActivity.launch(requireContext()) }
     }
 }

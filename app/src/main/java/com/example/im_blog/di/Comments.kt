@@ -2,6 +2,7 @@ package com.example.im_blog.di
 
 import androidx.lifecycle.ViewModelProviders
 import com.example.im_blog.http.service.CommentsService
+import com.example.im_blog.ui.MainPassageActivity
 import com.example.im_blog.ui.comments.CommentsFragment
 import com.example.im_blog.ui.comments.CommentsModelFactory
 import com.example.im_blog.ui.comments.CommentsViewModel
@@ -21,6 +22,6 @@ val CommentModule = Kodein.Module(TAG){
     }
 
     bind<CommentsViewModel>() with scoped(AndroidLifecycleScope).singleton {
-        ViewModelProviders.of(instance<CommentsFragment>(),CommentsModelFactory(instance()))[CommentsViewModel::class.java]
+        ViewModelProviders.of(instance<MainPassageActivity>(),CommentsModelFactory(instance()))[CommentsViewModel::class.java]
     }
 }

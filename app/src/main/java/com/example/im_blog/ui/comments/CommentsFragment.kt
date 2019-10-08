@@ -47,9 +47,16 @@ class CommentsFragment :BaseFragment(),KodeinAware{
     }
 
     fun loadData(){
-        val id = activity?.intent?.getLongExtra(Passage.PASSAGE_ID,0L)?:throw RuntimeException("the comment id can not be null")
+        val intent = activity?.intent?:return
+        val passage = intent.getSerializableExtra("passage") as Passage
+        val id = passage.id
+        binding.passage = passage
         model.fetchComments(id).observe(this, Observer {
             adapter.submitList(it)
+        })
+
+        model.error.observe(this, Observer {
+            it.printStackTrace()
         })
     }
 }

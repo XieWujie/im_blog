@@ -3,8 +3,16 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/main_nav" app:startDestination="@id/PassageListFragment">
 
+    <fragment
+            android:id="@+id/passageListFragment"
+            android:name="com.example.im_blog.ui.passages.PassageListFragment"
+            android:label="MainFragment" />
     <fragment android:id="@+id/PassageListFragment" android:name="com.example.im_blog.ui.passages.PassageListFragment"
               android:label="MainFragment"/>
 
-    <fragment android:id="@+id/me_fragment" android:name="com.example.im_blog.ui.me.MeFragment"/>
+    <fragment android:id="@+id/me_fragment" android:name="com.example.im_blog.ui.me.MeFragment">
+        <action
+                android:id="@+id/action_me_fragment_to_passageListFragment"
+                app:destination="@id/passageListFragment" />
+    </fragment>
 </navigation>

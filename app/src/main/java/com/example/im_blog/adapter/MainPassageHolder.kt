@@ -3,12 +3,11 @@ package com.example.im_blog.adapter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.im_blog.base.App
 import com.example.im_blog.database.passage.Passage
-import com.example.im_blog.databinding.PassageItemBinding
-import com.example.im_blog.ui.MainPassageActivity
+import com.example.im_blog.databinding.MainPassageContentItemBinding
 import com.google.gson.Gson
 import org.kodein.di.generic.instance
 
-class PassageHolder(val binding: PassageItemBinding) : BaseHolder<Passage>(binding.root) {
+class MainPassageHolder (private val binding:MainPassageContentItemBinding):BaseHolder<Passage>(binding.root){
 
     private val gson: Gson by App.INSTANCE.kodein.instance()
     override fun bind(source: Passage) {
@@ -24,12 +23,6 @@ class PassageHolder(val binding: PassageItemBinding) : BaseHolder<Passage>(bindi
         binding.picRecyclerView.adapter = adapter
         adapter.setList(pics.toList())
         adapter.notifyDataSetChanged()
-        binding.commentLayout.setOnClickListener {
-            MainPassageActivity.launch(itemView.context,source,MainPassageActivity.COMMENT_FIRST)
-        }
-        binding.root.setOnClickListener {
-            MainPassageActivity.launch(itemView.context,source,MainPassageActivity.CONTENT_FIRST)
-        }
     }
 
     private fun getPics(pics: String): Array<String> {
