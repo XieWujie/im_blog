@@ -5,12 +5,15 @@ import android.content.Intent
 import android.database.DatabaseUtils
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
+import android.view.ViewTreeObserver
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import com.example.im_blog.R
 import com.example.im_blog.adapter.MainPassageAdapter
 import com.example.im_blog.adapter.PassageAdapter
@@ -25,6 +28,7 @@ import com.example.im_blog.http.entities.Passages
 import com.example.im_blog.ui.comments.CommentsFragment
 import com.example.im_blog.ui.comments.CommentsViewModel
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_items.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.AndroidLifecycleScope
@@ -43,6 +47,7 @@ class MainPassageActivity : BaseActivity(),KodeinAware {
     }
     private lateinit var binding:ActivityMainPassageBinding
     private val model: CommentsViewModel by instance()
+    private lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,46 +55,45 @@ class MainPassageActivity : BaseActivity(),KodeinAware {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = layoutManager
         loadData()
     }
 
 
     fun loadData(){
         val data = intent.getSerializableExtra(passage_TAG)?:throw RuntimeException("the passage can not be null")
-        val first = COMMENT_FIRST
+        val first = intent.getIntExtra(WHAT_FIRST, CONTENT_FIRST)
         val passage = data as Passage
         val id = passage.id
         val adapter = MainPassageAdapter(passage)
         binding.recyclerView.adapter = adapter
-        if (first == CONTENT_FIRST) {
-            model.fetchComments(id).observe(this, Observer {
-                adapter.submitList(it)
-                if (it.size>0){
-                    binding.recyclerView.smoothScrollToPosition(10)
-                }
-            })
-        }else{
-            var isFirstLoad = true
-            model.fetchComments(id).observe(this, Observer {
-                adapter.submitList(it)
-                if (it.size>0){
-                    binding.recyclerView.smoothScrollToPosition(10)
-                    isFirstLoad = false
-                }
-            })
+        model.fetchComments(id).observe(this, Observer {
+            adapter.submitList(it)
+        })
+        if (first == COMMENT_FIRST) {
+            binding.recyclerView.viewTreeObserver.addOnGlobalLayoutListener(layoutListener)
         }
-
         model.error.observe(this, Observer {
             it.printStackTrace()
         })
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home->finish()
         }
         return true
+    }
+
+    private val layoutListener = object :ViewTreeObserver.OnGlobalLayoutListener{
+        override fun onGlobalLayout() {
+            layoutManager.scrollToPositionWithOffset(1, 0)
+            if (layoutManager.itemCount > 1){
+                binding.recyclerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        }
     }
 
     companion object{

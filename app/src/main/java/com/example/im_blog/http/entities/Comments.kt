@@ -1,5 +1,7 @@
 package com.example.im_blog.http.entities
 
+import java.io.Serializable
+
 
 data class Comments(
     val comments:List<Comment>,
@@ -23,6 +25,6 @@ data class Comment(
     val status: Status,
     val text: String,
     val user: UserInfo
-)
+):Serializable
 
 

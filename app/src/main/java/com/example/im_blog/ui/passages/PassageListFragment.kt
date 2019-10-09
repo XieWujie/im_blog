@@ -1,5 +1,6 @@
 package com.example.im_blog.ui.passages
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.example.im_blog.base.BaseFragment
 import com.example.im_blog.database.passage.Passage
 import com.example.im_blog.databinding.FragmentItemsBinding
 import com.example.im_blog.di.mainFragmentModule
+import com.example.im_blog.ui.ImageSeeActivity
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.AndroidLifecycleScope
@@ -62,4 +64,5 @@ class PassageListFragment :BaseFragment(),KodeinAware{
         model.err.observe(this, Observer {
             it?.apply { it.message } })
     }
+
 }

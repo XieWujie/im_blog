@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseHolder<T>(view:View):RecyclerView.ViewHolder(view){
-    private val context = itemView.context
+    protected val context = itemView.context
 
     abstract fun bind(source:T)
 

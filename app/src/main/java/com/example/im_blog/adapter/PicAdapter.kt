@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.im_blog.databinding.PicViewBinding
+import com.example.im_blog.ui.ImageSeeActivity
 
-class PicAdapter: RecyclerView.Adapter<PicAdapter.ViewHolder>() {
+class PicAdapter(private val imagesClickEvent:(index:Int)->Unit): RecyclerView.Adapter<PicAdapter.ViewHolder>() {
 
     private val mList = ArrayList<String>()
 
@@ -37,8 +38,8 @@ class PicAdapter: RecyclerView.Adapter<PicAdapter.ViewHolder>() {
                 2 -> px2dp(itemView.context, 150)
                 else -> px2dp(itemView.context, 100)
             }
-            val large = source.replace("thumbnail", "large")
-            Glide.with(binging.image).load(large).override(h, h).into(binging.image)
+            Glide.with(binging.image).load(source).override(h, h).into(binging.image)
+            binging.image.setOnClickListener { imagesClickEvent(mList.indexOf(source)) }
         }
     }
 
